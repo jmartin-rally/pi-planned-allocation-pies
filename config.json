@@ -1,0 +1,15 @@
+{
+    "name": "Portfolio Alignment",
+    "className": "CustomApp",
+    "sdk": "2.0p3",
+    "debugSDKAbsoluteURL": "https://audemo.rallydev.com/apps",
+    "debugWorkspaceOID": "722746", /* integrations */
+    "debugProjectOID": "722844", /* online store */
+    "javascript": [
+    	"TargetDialog.js",
+        "App.js"
+    ],
+    "css": [
+        "app.css"
+    ]
+}
