@@ -315,22 +315,25 @@ Ext.define('CustomApp', {
                     total: group_total 
                 });
             });
-            
-            Ext.Array.each( data_set, function(item){
-                var ratio = Math.round(100 * item.total / overall_total);
-                item.hover_text = item.name + ":<br/>" + item.total + " points (" + ratio + "%)";
-                item.slice_text = ratio + "%";
-                if ( item.total === null || item.total === 0 ) { item.slice_text = ""; }
-            });
-            console.log( data_set );
-            var ordered_data_set = this._getOrderedDataSet( data_set );
-            
-            var calculated_store = Ext.create('Ext.data.JsonStore', {
-                fields: ['name','total','hover_text','slice_text'],
-                data: ordered_data_set
-            });
-            
-            this.planned_chart = this._getChart(calculated_store);
+            if ( overall_total === 0 ) {
+                this.planned_chart = Ext.create( 'Ext.Component', { html: 'Missing Preliminary Estimates' } );
+            } else {
+                Ext.Array.each( data_set, function(item){
+                    var ratio = Math.round(100 * item.total / overall_total);
+                    item.hover_text = item.name + ":<br/>" + item.total + " points (" + ratio + "%)";
+                    item.slice_text = ratio + "%";
+                    if ( item.total === null || item.total === 0 ) { item.slice_text = ""; }
+                });
+                console.log( data_set );
+                var ordered_data_set = this._getOrderedDataSet( data_set );
+                
+                var calculated_store = Ext.create('Ext.data.JsonStore', {
+                    fields: ['name','total','hover_text','slice_text'],
+                    data: ordered_data_set
+                });
+                
+                this.planned_chart = this._getChart(calculated_store);
+            }
         }
         this.wait.hide();
         this.down('#planned_chart_box').add( this.planned_chart );
