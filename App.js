@@ -139,13 +139,13 @@ Ext.define('CustomApp', {
                 },
                 sorters: [{ property: 'OrderIndex', direction: 'ASC' }],
                 filters: [{
-                    property: 'StateType.Name',
+                    property: 'TypeDef.Name',
                     operator: '=',
                     value: this.type_name
                 }]
             });
             
-            this.StateChooser = Ext.create( 'Rally.ui.ComboBox', {
+            this.StateChooser = Ext.create( 'Rally.ui.combobox.ComboBox', {
                 store: this.StateStore,
                 queryMode: 'local',
                 fieldLabel: 'State',
@@ -167,19 +167,27 @@ Ext.define('CustomApp', {
         console.log("_getLowestTypeName" );
         this.wait.show();
         Ext.create( 'Rally.data.WsapiDataStore', {
-            model: 'Type',
+            model: 'TypeDefinition',
             autoLoad: true,
-            fetch: [ 'Name', 'OrdinalValue' ],
-            sorters: [{
-                property: 'OrdinalValue',
-                direction: 'ASC'
+            fetch: [ 'Name', 'OrdinalValue', 'TypePath' ],
+            filters: [{
+                property: 'Parent.Name',
+                operator: '=',
+                value: 'Portfolio Item'
+            },
+            {
+                property: 'Ordinal',
+                operator: '=',
+                value: '0'
             }],
             listeners: {
                 load: function(store,data) {
                     console.log( "Type Datastore loaded", data );
                     var lowest_item = data[0];
                     this.type_name = lowest_item.data.Name;
+                    this.type_path = lowest_item.data.TypePath;
                     this.down("#type_box").update(this.type_name);
+                    console.log("lowest type:", this.type_name);
                     this._addStateChooser();
                     this._getPlannedItems();
                 },

@@ -2,7 +2,7 @@
     "name": "Portfolio Alignment",
     "className": "CustomApp",
     "sdk": "2.0p3",
-    "debugSDKAbsoluteURL": "https://audemo.rallydev.com/apps",
+    "debugSDKAbsoluteURL": "https://rally1.rallydev.com/apps",
     "debugWorkspaceOID": "722746", /* integrations */
     "debugProjectOID": "722844", /* online store */
     "javascript": [
