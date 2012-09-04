@@ -537,11 +537,14 @@
                     var that = this;
                     
                     var number_of_colors = store.data.items.length;
-                    
+                    var number_of_columns = 10;
+                    if ( number_of_colors < 6 ) {
+                        number_of_columns = number_of_columns * 2;
+                    }
                     if ( this.legend_table ) { this.legend_table.destroy(); }
                     this.legend_table = Ext.create( 'Ext.panel.Panel', { 
                         border: 0,
-                        layout: { type: 'table', columns: number_of_colors * 2 },
+                        layout: { type: 'table', columns: number_of_columns },
                         defaults: { border: 0, bodyStyle: 'padding:2px' }
                     } );
                     Ext.Array.each( store.data.items, function(record, index) {
