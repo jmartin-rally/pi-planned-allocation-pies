@@ -256,7 +256,7 @@ Ext.define('CustomApp', {
         }
         
         Ext.create('Rally.data.WsapiDataStore', {
-            model: 'PortfolioItem',
+            model: 'PortfolioItem/' + this.type_name,
             autoLoad: true,
             fetch: fetch,
             groupField: 'InvestmentCategory',
